@@ -1,1 +1,3 @@
 node_modules/
+
+REACT_APP_GOOGLE_API_KEY = 'AIzaSyCytkfD0CgQ2UWv2pESK_WLkROVQN6hSFc'
