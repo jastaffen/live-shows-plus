@@ -1,0 +1,4 @@
+{ 
+    "mongoURI": "mongodb+srv://jackattack:Radiohead69@live-shows-plus-60x8n.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "comeycomeycomey"
+}
