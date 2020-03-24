@@ -37,6 +37,32 @@ router.post('/', auth, async (req, res) => {
     
 });
 
+// @route     Delete api/videos
+// @desc      unsaves a saved video
+// @access    Private
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        let video = await Video.findById(req.params.id);
+
+        if (!video) {
+            res.status(404).send('Video not found')
+        }
+        
+        if (video.user.toString() !== req.user.id) {
+            return res.status(404).send({ msg: 'User not authorized'})
+        }
+
+        await video.remove();
+
+        res.json({ msg: 'video unsaved'});
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            res.status(404).send('Video not found')
+        }
+    }
+});
+
 // @route     GET api/videos
 // @desc      get a users saved videos
 // @access    Private
