@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 
 import FormField from '../FormField';
@@ -10,6 +11,7 @@ const Register = () => {
         password: '',
         password2: ''
     });
+    const { name, email, password, password2 } = signup;
 
     const handleChange = e => {
         setSignup({
@@ -23,11 +25,30 @@ const Register = () => {
         if (password !== password2) {
             console.log('passwords do not match');
         } else {
-            console.log(signup);
+            const newUser = {
+                name,
+                email,
+                password
+            }
+            
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+
+                const body = JSON.stringify(newUser);
+
+                const res = await axios.post('http://localhost:5000/api/users', body, config);
+                
+                console.log(res.data);
+                
+            } catch (err) {
+                console.error(err); 
+            }
         }
     }
-
-    const { name, email, password, password2 } = signup;
 
     return(
         <form onSubmit={handleSubmit}>
