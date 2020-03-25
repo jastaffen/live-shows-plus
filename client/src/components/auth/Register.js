@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -25,28 +26,29 @@ const Register = () => {
         if (password !== password2) {
             console.log('passwords do not match');
         } else {
-            const newUser = {
-                name,
-                email,
-                password
-            }
+            console.log('SUCCESS');
+            // const newUser = {
+            //     name,
+            //     email,
+            //     password
+            // }
             
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
+            // try {
+            //     const config = {
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         }
+            //     }
 
-                const body = JSON.stringify(newUser);
+            //     const body = JSON.stringify(newUser);
 
-                const res = await axios.post('http://localhost:5000/api/users', body, config);
+            //     const res = await axios.post('http://localhost:5000/api/users', body, config);
                 
-                console.log(res.data);
+            //     console.log(res.data);
                 
-            } catch (err) {
-                console.error(err); 
-            }
+            // } catch (err) {
+            //     console.error(err); 
+            // }
         }
     }
 
@@ -57,10 +59,13 @@ const Register = () => {
             <FormField type="text" value={email}
             name="email" handleChange={handleChange} required={true} />
             <FormField type="password" value={password}
-            name="password" handleChange={handleChange} required={true} />
+            name="password" handleChange={handleChange} required={true} minLength="6" />
             <FormField type="password" value={password2}
-            name="password2" handleChange={handleChange} required={true} />
+            name="password2" handleChange={handleChange} required={true} minLength="6" />
             <button type="submit" onClick={handleSubmit}>Register</button>
+            <p>
+                Already have an account? <Link to='/login'>Login</Link>
+            </p>
         </form>
     )
 };
