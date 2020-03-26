@@ -12,7 +12,7 @@ const FormField = ({type, value, name, handleChange, required, minLength }) => {
             <input type={type} name={name} 
             value={value} 
             placeholder={placeholder()} 
-            onChange={handleChange} minLength={minLength} required={required} />
+            onChange={handleChange} minLength={minLength} />
         </div>
     )
 }

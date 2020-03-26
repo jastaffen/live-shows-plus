@@ -27,9 +27,9 @@ const Login = () => {
     return(
         <form onSubmit={handleSubmit}>
             <FormField type="text" value={email}
-            name="email" handleChange={handleChange} required={true} />
+            name="email" handleChange={handleChange} required={"required"} />
             <FormField type="password" value={password}
-            name="password" handleChange={handleChange} required={true} />
+            name="password" handleChange={handleChange} required={"required"} />
             <button type="submit" onClick={handleSubmit}>Login</button>
             <p>
                 Don't have an account? <Link to='/register'>Sign up</Link>
