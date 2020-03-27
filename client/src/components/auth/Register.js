@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 import FormField from '../FormField';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const [signup, setSignup] = useState({
         name: '',
         email: '',
@@ -29,8 +29,11 @@ const Register = ({ setAlert, register }) => {
             setAlert('passwords do not match', 'danger');
         } else {
             register({ name, email, password });
-            // console.log('SUCCESS');
         }
+    }
+    
+    if (isAuthenticated) {
+        return <Redirect to='/dashboard' />
     }
 
     return(
@@ -51,9 +54,14 @@ const Register = ({ setAlert, register }) => {
     )
 };
 
+const msp = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 }
 
-export default connect(null, { setAlert, register })(Register);
+export default connect(msp, { setAlert, register })(Register);
