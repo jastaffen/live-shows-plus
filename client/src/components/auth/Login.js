@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 import FormField from '../FormField';
 
 
 
-const Login = () => {
-    const [login, setLogin] = useState({
+const Login = ({ login, isAuthenticated }) => {
+    console.log(isAuthenticated);
+    const [log, setlog] = useState({
         email: '',
         password: ''
     });
-    const { email, password } = login;
+    const { email, password } = log;
 
     const handleChange = e => {
-        setLogin({
-            ...login,
+        setlog({
+            ...log,
             [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log('SUCCESS');
+        login(email, password);
+    }
+
+    if (isAuthenticated) {
+        return <Redirect to='/dashboard' />
     }
 
     return(
@@ -38,4 +46,13 @@ const Login = () => {
     )
 };
 
-export default Login;
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
+};
+
+const msp = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(msp, { login })(Login);
