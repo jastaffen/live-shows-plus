@@ -57,7 +57,7 @@ async (req, res) => {
     if (status) profileFields.status = status;
     if (favoriteArtists) {
         profileFields.favoriteArtists = favoriteArtists
-            .split(',').map(artist => artist.trim());
+           .map(artist => artist.trim());
     }
 
     
