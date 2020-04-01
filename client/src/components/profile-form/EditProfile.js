@@ -72,11 +72,11 @@ const EditProfile = ({ createProfile, getCurrentProfile, history, profile: {prof
             </form>
             <div>
                 <ul>
-                    {favoriteArtists ? favoriteArtists.map(artist => 
+                    {favoriteArtists && favoriteArtists.map(artist => 
                     <li key={artist}>{artist}
                         <button id={artist} onClick={deleteArtist}>x</button>
                     </li>
-                    ) : null}
+                    )}
                 </ul>
             </div>
             
