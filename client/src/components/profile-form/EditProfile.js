@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ const EditProfile = ({ createProfile, getCurrentProfile, history, profile: {prof
             favoriteArtists: loading || !profile.favoriteArtists ? '' : profile.favoriteArtists,
             favoriteArtist: ''
         })
-    }, [loading])
+    }, [loading, getCurrentProfile])
 
     const addFavoriteArtist = (e) => {
         e.preventDefault();
