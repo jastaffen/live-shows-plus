@@ -64,7 +64,7 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 // @route     GET api/videos
-// @desc      get a users saved videos
+// @desc      get all users saved videos
 // @access    Private
 router.get('/saved', auth, async (req, res) => {
     try {
