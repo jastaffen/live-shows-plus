@@ -5,11 +5,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import DashboardActions from './DashboardActions';
+import VideoFeed from '../videos/VideoFeed';
 
 const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: { profile, loading } }) => {
+    
+    
     useEffect(() => {
         getCurrentProfile();
+        
     }, [getCurrentProfile])
+
 
     return loading && profile === null ? 
     <Spinner /> : 
@@ -18,17 +23,23 @@ const Dashboard = ({ getCurrentProfile, deleteAccount, auth: { user }, profile: 
         <p>{`Welcome ${user && user.name}`}</p>
         { profile !== null ? 
         <>
+            <VideoFeed id={user && user._id}/>
+
             <DashboardActions />
+
             <div>
                 <button onClick={() => deleteAccount()}>Delete My Account</button>
             </div>
-        </> : 
+        </> 
+        
+        : 
         <>
             <p>You have not yet set up a profile, please
                 add some info
                 <Link to='/create-profile'>Create Profile</Link>
             </p>
-        </>}
+        </>
+        }
     </>;
 }
 
