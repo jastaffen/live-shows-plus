@@ -109,9 +109,17 @@ router.get('/user/:user_id', auth, async (req, res) => {
 });
 
 const addVideos = async artist => {
+    let arr = [];
     let body = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${artist}+full+concert&type=video&videoDuration=long&key=${config.get('apiKey')}`);
-    // console.log(body.data.items);
-    return body.data.items;
+    body.data.items.forEach(video => {
+        let obj = {};
+        obj['id'] = video.id.videoId,
+        obj['publishedAt'] = video.snippet.publishedAt,
+        obj['title'] = video.snippet.title,
+        obj['thumbnails'] = video.snippet.thumbnails
+        arr.push(obj);
+    })
+    return arr;
 }
 
 module.exports = router;
